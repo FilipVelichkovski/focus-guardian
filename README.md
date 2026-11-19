@@ -1,5 +1,10 @@
 # Focus Guardian
 
+![AI-Generated](https://img.shields.io/badge/AI--Generated-LLM%20Code-blue)
+
+> [!NOTE]
+> **AI-Generated Code:** This repository and its codebase were generated with an LLM.
+
 Lightweight companion app that connects to **Google Calendar** & **Google Tasks** and checks your last 5 minutes of tracked activity (`~/.local/share/activity-tracker/activity.db`).
 
 ## Behavior
