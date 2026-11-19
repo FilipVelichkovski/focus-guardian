@@ -5,11 +5,11 @@
 > [!NOTE]
 > **AI-Generated Code:** This repository and its codebase were generated with an LLM.
 
-Lightweight companion app that connects to **Google Calendar** & **Google Tasks** and checks your last 5 minutes of tracked activity from [activity-tracker](https://github.com/FilipVelichkovski/activity-tracker) (`~/.local/share/activity-tracker/activity.db`).
+Lightweight companion app that connects to **Google Calendar** & **Google Tasks** and checks your last 5 minutes of tracked activity from [activity-tracker](https://github.com/FilipVelichkovski/activity-tracker) via its local HTTP API (`http://127.0.0.1:7878`, with direct SQLite fallback if `~/.local/share/activity-tracker/activity.db` is unencrypted).
 
 ## Requirements
 
-- **[activity-tracker](https://github.com/FilipVelichkovski/activity-tracker)** (required) — must be installed and running to populate `~/.local/share/activity-tracker/activity.db`.
+- **[activity-tracker](https://github.com/FilipVelichkovski/activity-tracker)** (required) — must be installed and running to serve the local HTTP API (`http://127.0.0.1:7878`), since `activity.db` is SQLCipher-encrypted.
 
 ## Behavior
 - **Every 5 minutes** (`300s`): checks if you are working on an immediate not-done Google Task **or** learning **Analysis** / **Discrete Mathematics**.
