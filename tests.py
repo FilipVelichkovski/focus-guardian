@@ -72,7 +72,7 @@ class TestFocusGuardian(unittest.TestCase):
             db = Path(tmpdir) / "activity.db"
             now = 1000.0
             _create_test_db(db, [("dev.zed.Zed", "hw03-variant — variant.hpp", 800.0, 1000.0)])
-            cfg = GuardianConfig(activity_db_path=db)
+            cfg = GuardianConfig(activity_db_path=db, allowed_topics=["discrete mathematics"])
             tasks = [PendingTask(title="Finish variant homework")]
             ev = evaluate_recent_activity(cfg, tasks, window_sec=300, now_ts=now)
             self.assertEqual(ev.verdict, "FOCUSED")
@@ -85,7 +85,7 @@ class TestFocusGuardian(unittest.TestCase):
                 db,
                 [("org.mozilla.firefox", "Discrete Mathematics - Graph Theory — Mozilla Firefox", 800.0, 1000.0)],
             )
-            cfg = GuardianConfig(activity_db_path=db)
+            cfg = GuardianConfig(activity_db_path=db, allowed_topics=["discrete mathematics"])
             ev = evaluate_recent_activity(cfg, [], window_sec=300, now_ts=now)
             self.assertEqual(ev.verdict, "FOCUSED")
 
@@ -97,7 +97,7 @@ class TestFocusGuardian(unittest.TestCase):
                 db,
                 [("com.discordapp.Discord", "#random - Discord", 800.0, 1000.0)],
             )
-            cfg = GuardianConfig(activity_db_path=db)
+            cfg = GuardianConfig(activity_db_path=db, allowed_topics=["discrete mathematics"])
             tasks = [PendingTask(title="Finish variant homework")]
             with patch("evaluator._scan_running_study_cmdlines", return_value=[]):
                 ev = evaluate_recent_activity(cfg, tasks, window_sec=300, now_ts=now)
@@ -109,7 +109,7 @@ class TestFocusGuardian(unittest.TestCase):
             db = Path(tmpdir) / "activity.db"
             now = 1000.0
             _create_test_db(db, [("com.discordapp.Discord", "#random", 990.0, 1000.0)])
-            cfg = GuardianConfig(activity_db_path=db)
+            cfg = GuardianConfig(activity_db_path=db, allowed_topics=["discrete mathematics"])
             with patch("evaluator._scan_running_study_cmdlines", return_value=[]):
                 ev = evaluate_recent_activity(cfg, [], window_sec=300, now_ts=now)
             self.assertEqual(ev.verdict, "IDLE")

@@ -206,15 +206,17 @@ def run_single_check(cfg: GuardianConfig, notify: bool = True, verbose: bool = F
     _write_state("DISTRACTED", ev.top_distraction or "Unproductive activity", tasks=tasks, events=events)
     if tasks:
         top_tasks = "; ".join(t.title for t in tasks[:2])
+        allowed_note = f"\n(Allowed: {cfg.allowed_topics_label})" if cfg.allowed_topics else ""
         body = (
             f"Drifted to: {ev.top_distraction or 'unproductive activity'}\n"
-            f"Pending tasks: {top_tasks}\n"
-            f"(Allowed: Analysis or Discrete Mathematics)"
+            f"Pending tasks: {top_tasks}"
+            f"{allowed_note}"
         )
     else:
+        allowed_note = cfg.allowed_topics_label if cfg.allowed_topics else "Pending Google Tasks"
         body = (
             f"Drifted to: {ev.top_distraction or 'unproductive activity'}\n"
-            f"Allowed: Learning Analysis or Discrete Mathematics"
+            f"Allowed: {allowed_note}"
         )
 
     if notify:

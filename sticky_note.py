@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from config import CACHE_PATH, DATA_DIR
+from config import CACHE_PATH, DATA_DIR, GuardianConfig
 from env_checks import should_spare_oled
 
 STATE_PATH = DATA_DIR / "state.json"
@@ -280,7 +280,9 @@ def _run_pyside6() -> int:
             self.tasks_lbl.setStyleSheet("font-size: 12px; color: #e6e9ef;")
             card_layout.addWidget(self.tasks_lbl)
 
-            self.footer_lbl = QLabel("Allowed: Analysis & Discrete Mathematics")
+            cfg = GuardianConfig.load()
+            footer_text = f"Allowed: {cfg.allowed_topics_label}" if cfg.allowed_topics else "Allowed: Pending Google Tasks"
+            self.footer_lbl = QLabel(footer_text)
             self.footer_lbl.setWordWrap(True)
             self.footer_lbl.setStyleSheet("font-size: 11px; color: #50d890;")
             card_layout.addWidget(self.footer_lbl)

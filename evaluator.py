@@ -270,6 +270,6 @@ def evaluate_recent_activity(
         verdict="DISTRACTED",
         total_active_sec=total_active,
         productive_sec=productive,
-        matched_reason="No active task or Analysis/Discrete Math detected",
+        matched_reason="No active task or allowed topic detected",
         top_distraction=top_distraction,
     )

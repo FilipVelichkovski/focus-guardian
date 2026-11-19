@@ -15,60 +15,18 @@ TOKEN_PATH = CONFIG_DIR / "token.json"
 CONFIG_PATH = CONFIG_DIR / "config.json"
 CACHE_PATH = DATA_DIR / "cache.json"
 
-DEFAULT_ALLOWED_TOPICS = [
-    # Analysis (Real Analysis / Calculus)
-    "analysis",
-    "real analysis",
-    "calculus",
-    "limit",
-    "continuity",
-    "derivative",
-    "integral",
-    "sequence",
-    "series",
-    "convergence",
-    "supremum",
-    "infimum",
-    "cauchy",
-    "riemann",
-    "metric space",
-    "topology",
-    "bolzano",
-    "weierstrass",
-    "taylor",
-    # Discrete Mathematics
-    "discrete",
-    "discrete math",
-    "discrete mathematics",
-    "combinatorics",
-    "graph theory",
-    "induction",
-    "recurrence",
-    "number theory",
-    "modular arithmetic",
-    "boolean",
-    "predicate logic",
-    "propositional",
-    "set theory",
-    "relation",
-    "bijection",
-    "pigeonhole",
-    "permutation",
-    "combination",
-    "probability",
-    "tree",
-    "planar graph",
-]
+DEFAULT_ALLOWED_TOPICS: list[str] = []
 
 
 @dataclass
 class GuardianConfig:
-    check_interval_sec: int = 100
+    check_interval_sec: int = 300
     quiet_start_hour: int = 21
     quiet_end_hour: int = 8
     min_active_sec_to_evaluate: int = 45
     min_focused_ratio: float = 0.40
     allowed_topics: list[str] = field(default_factory=lambda: list(DEFAULT_ALLOWED_TOPICS))
+    allowed_topics_label: str = "Configured topics"
     extra_ical_urls: list[str] = field(default_factory=list)
     activity_db_path: Path = ACTIVITY_DB_PATH
     activity_api_url: str = "http://127.0.0.1:7878"
@@ -88,6 +46,7 @@ class GuardianConfig:
             min_active_sec_to_evaluate=int(raw.get("min_active_sec_to_evaluate", 45)),
             min_focused_ratio=float(raw.get("min_focused_ratio", 0.40)),
             allowed_topics=list(raw.get("allowed_topics", DEFAULT_ALLOWED_TOPICS)),
+            allowed_topics_label=str(raw.get("allowed_topics_label", "Configured topics")),
             extra_ical_urls=list(raw.get("extra_ical_urls", [])),
             activity_db_path=Path(raw.get("activity_db_path", ACTIVITY_DB_PATH)).expanduser(),
             activity_api_url=str(raw.get("activity_api_url", "http://127.0.0.1:7878")).rstrip("/"),
